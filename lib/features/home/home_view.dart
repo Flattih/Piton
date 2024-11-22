@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:piton/core/constants/image_constants.dart';
-import 'package:piton/core/constants/shared_pref.dart';
-import 'package:piton/core/extension/context_extension.dart';
+import 'package:gap/gap.dart';
+import 'package:piton/core/common/app_loader.dart';
+import 'package:piton/core/common/app_network_image.dart';
+import 'package:piton/core/constants/api_constants.dart';
 import 'package:piton/core/extension/padding_extension.dart';
 import 'package:piton/core/extension/widget_extension.dart';
-import 'package:piton/features/home/widgets/category.dart';
-import 'package:piton/features/splash/splash_view.dart';
+import 'package:piton/features/home/mixin/home_view_mixin.dart';
+import 'package:piton/features/home/repository/book_repository.dart';
+import 'package:piton/features/home/view_models/search_view_model.dart';
+import 'package:piton/features/home/widgets/custom_sliver_app_bar.dart';
+import 'package:piton/features/home/widgets/responsive_horizontal_book_list.dart';
+import 'package:piton/features/home/widgets/search_text_field.dart';
+import 'package:piton/features/home/widgets/top_categories.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   static const String routeName = '/home';
@@ -16,94 +22,68 @@ class HomeView extends ConsumerStatefulWidget {
   ConsumerState<HomeView> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeView> {
+class _HomeScreenState extends ConsumerState<HomeView> with HomeViewMixin {
   @override
   Widget build(BuildContext context) {
+    final searchState = ref.watch(searchViewModelPr);
+
     return Scaffold(
       body: SafeArea(
-              child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                backgroundColor: Colors.white,
-                surfaceTintColor: Colors.white,
-                expandedHeight: 150,
-                flexibleSpace: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    // SliverAppBar'ın yüksekliğini takip et
-                    final percentCollapsed = (constraints.maxHeight - kToolbarHeight) / 100.0;
-                    final isCollapsed = percentCollapsed <= 0;
-                    const logo = Images.logo;
-
-                    return FlexibleSpaceBar(
-                      titlePadding: EdgeInsets.zero,
-                      title: AnimatedOpacity(
-                        opacity: isCollapsed ? 1.0 : 0.0,
-                        duration: const Duration(milliseconds: 300),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0), // Hafif üst boşluk için
-                          child: Center(
-                            child: Image.asset(
-                              logo,
-                              height: 40,
-                              fit: BoxFit.contain,
+        child: CustomScrollView(
+          slivers: [
+            const CustomSliverAppBar(),
+            const TopCategories().toSliver,
+            const SliverGap(25),
+            SearchTextField(searchController: searchController).paddingOnly(right: 12).toSliver,
+            const SliverGap(40),
+            searchState.isSearching
+                ? Consumer(builder: (ctx, ref, child) {
+                    return SliverList.builder(
+                      itemBuilder: (context, index) {
+                        final book = searchState.filteredBooks[index];
+                        return ListTile(
+                          leading: SizedBox(
+                            width: 50,
+                            child: AppNetworkImage(
+                              fileName: book.cover ?? ApiConstants.DEFAULT_BOOK_PIC,
                             ),
                           ),
-                        ),
-                      ),
-                      background: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                logo,
-                                height: 40,
-                                fit: BoxFit.contain,
-                              ).paddingOnly(top: 8),
-                              const Text(
-                                "AppBar Text",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
+                          title: Text(book.name ?? ""),
+                          subtitle: Text(book.author ?? ""),
+                        );
+                      },
+                      itemCount: searchState.filteredBooks.length,
+                    );
+                  })
+                : ref.watch(getBookCategoriesProvider).when(
+                      data: (bookCategories) {
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              final bookCategory = bookCategories[index];
+                              return ResponsiveHorizontalBookList(
+                                bookCategory: bookCategory,
+                              );
+                            },
+                            childCount: bookCategories.length,
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Row(
-                children: [Category()],
-              ).toSliver,
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text('Item $index'),
-                    );
-                  },
-                  childCount: 100,
-                ),
-              ),
-            ],
-          ).paddingSymmetric(
-            horizontal: 16,
-          )) ??
-          GestureDetector(
-            onTap: () {
-              SharedPref.removeToken(ref).then(
-                (value) {
-                  context.toNamedAndRemoveUntil(SplashView.routeName);
-                },
-              );
-            },
-            child: const Center(
-              child: Text('Logout'),
-            ),
-          ),
+                        );
+                      },
+                      error: (error, stackTrace) {
+                        return ErrorHandler(
+                          errorMessage: error.toString(),
+                          onRetry: () {
+                            ref.refresh(getBookCategoriesProvider);
+                          },
+                        ).toSliver;
+                      },
+                      loading: () => const Loader().toSliver,
+                    ),
+          ],
+        ).paddingOnly(
+          left: 16,
+        ),
+      ),
     );
   }
 }

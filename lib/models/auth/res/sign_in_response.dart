@@ -24,13 +24,11 @@ class SignInResponse with EquatableMixin {
   Map<String, dynamic> toJson() => _$SignInResponseToJson(this);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [actionLogin];
 }
 
 @JsonSerializable()
 class ActionLogin with EquatableMixin {
-  @JsonKey(name: "token")
   final String? token;
 
   ActionLogin({
@@ -49,6 +47,5 @@ class ActionLogin with EquatableMixin {
   Map<String, dynamic> toJson() => _$ActionLoginToJson(this);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [token];
 }

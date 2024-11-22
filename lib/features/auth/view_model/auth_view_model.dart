@@ -8,6 +8,10 @@ import 'package:piton/models/auth/req/sign_up_req.dart';
 
 final authViewModelPr = AutoDisposeAsyncNotifierProvider<AuthViewModel, void>(AuthViewModel.new);
 
+final isLocalAuthCompletedProvider = FutureProvider.autoDispose<bool>((ref) async {
+  return ref.read(authViewModelPr.notifier).authenticateWithBiometrics();
+});
+
 class AuthViewModel extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
@@ -33,6 +37,7 @@ class AuthViewModel extends AutoDisposeAsyncNotifier<void> {
       state = const AsyncLoading();
       final token = await authRepository.signInWithEmailAndPassword(signInReq);
 
+      // Saves the token in shared preferences if "Remember Me" is enabled and the token is not empty
       if (shouldRemember && token.isNotEmpty) {
         await SharedPref.saveToken(ref, token);
       }
@@ -44,21 +49,15 @@ class AuthViewModel extends AutoDisposeAsyncNotifier<void> {
     }
   }
 
-/*   Future<void> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
-    final authRepository = ref.read(authRepositoryProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      final userCredential = await authRepository.signInWithEmailAndPassword(email, password);
-      final idToken = await userCredential.user?.getIdToken();
-      final response = await ref.read(dioClientProvider).dio.post(
-            ApiConstants.SIGN_IN_URL,
-            data: SignInModel(idToken: idToken ?? "").toJson(),
-          );
-      ref.read(userProvider.notifier).update((state) => UserModel.fromMap(response.data));
-    });
+  // Handles biometric authentication
+  Future<bool> authenticateWithBiometrics() async {
+    try {
+      final authRepository = ref.read(authRepositoryProvider);
+      final isAuthenticated = await authRepository.authenticateWithBiometrics();
+      return isAuthenticated;
+    } catch (e, st) {
+      state = AsyncError(e, st);
+      return false;
+    }
   }
- */
 }

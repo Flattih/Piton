@@ -16,9 +16,16 @@ dependencies:
 
   # State Management  
   flutter_riverpod: ^2.6.1
+  
+  # Local Authentication
+  local_auth: ^2.3.0
 
   # Local Storage
   shared_preferences: ^2.3.3
+  hive: ^4.0.0-dev.2
+  isar_flutter_libs: ^4.0.0-dev.13
+  path_provider: ^2.1.0
+ 
 
   # Networking
   dio: ^5.7.0
@@ -32,11 +39,11 @@ dependencies:
   cached_network_image: ^3.4.1
 
   # Animation
-  flutter_animate: ^4.5.0
+  flutter_animate: ^4.5.1
 
   # Core
   json_annotation: ^4.9.0
-  equatable: ^2.0.5
+  equatable: ^2.0.6
 
 
 dev_dependencies:

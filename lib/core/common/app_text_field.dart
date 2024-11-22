@@ -5,7 +5,6 @@ import 'package:piton/core/theme/app_colors.dart';
 class AppTextField extends StatelessWidget {
   final String hintText;
   final Widget? suffixIcon;
-  final String? prefixIconPath;
   final TextStyle? hintStyle;
   final String? Function(String?)? validator;
   final bool isObscure;
@@ -15,10 +14,13 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final int? maxLength;
   final String? counterText;
+  final Widget? prefixIcon;
+  final EdgeInsetsGeometry? contentPadding;
+  final void Function(String)? onSubmitted;
+  final void Function(String)? onChanged;
   const AppTextField(
       {super.key,
       this.hintText = "John Doe",
-      this.prefixIconPath,
       this.isObscure = false,
       this.suffixIcon,
       this.hintStyle,
@@ -28,6 +30,10 @@ class AppTextField extends StatelessWidget {
       this.keyboardType = TextInputType.text,
       this.maxLength,
       this.counterText,
+      this.prefixIcon,
+      this.contentPadding,
+      this.onSubmitted,
+      this.onChanged,
       required this.controller});
 
   @override
@@ -39,13 +45,17 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       obscureText: isObscure,
       maxLength: maxLength,
+      onFieldSubmitted: onSubmitted,
+      onChanged: onChanged,
       validator: validator,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
         filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide.none,
-        ),
+        contentPadding: contentPadding,
+        suffixIcon: suffixIcon,
+        border: _outlinedBorder(),
+        focusedBorder: _outlinedBorder(),
+        enabledBorder: _outlinedBorder(),
         fillColor: AppColors.primaryColor,
         counterText: counterText,
         hintStyle: hintStyle ??
@@ -54,8 +64,14 @@ class AppTextField extends StatelessWidget {
               color: AppColors.hintColor,
             ),
         hintText: hintText,
-        suffixIcon: suffixIcon,
       ),
+    );
+  }
+
+  OutlineInputBorder _outlinedBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide.none,
     );
   }
 }

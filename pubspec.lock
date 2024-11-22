@@ -290,10 +290,10 @@ packages:
     dependency: "direct main"
     description:
       name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      sha256: b35578f687b79243d39008c44d638474d93e9091e578c970efef41ce0c3fa000
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -335,10 +335,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_animate
-      sha256: "7c8a6594a9252dad30cc2ef16e33270b6248c4dedc3b3d06c86c4f3f4dc05ae5"
+      sha256: "5fc5bb5486624a9ed2d3d9a04a9f7a6a92511f36a030531e092ce819ab3091af"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.0"
+    version: "4.5.1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -360,6 +360,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: "9b78450b89f059e96c9ebb355fa6b3df1d6b330436e0b885fb49594c41721398"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.23"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -434,6 +442,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  hive:
+    dependency: "direct main"
+    description:
+      name: hive
+      sha256: "10819524df282842ebae12870e2e0e9ebc3e5c4637bec741ad39b919c589cb20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0-dev.2"
   hotreloader:
     dependency: transitive
     description:
@@ -482,14 +498,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  isar:
+    dependency: transitive
+    description:
+      name: isar
+      sha256: ebf74d87c400bd9f7da14acb31932b50c2407edbbd40930da3a6c2a8143f85a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0-dev.14"
+  isar_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: isar_flutter_libs
+      sha256: "04a3f4035e213ddb6e78d0132a7c80296a085c2088c2a761b4a42ee5add36983"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0-dev.14"
   js:
     dependency: transitive
     description:
       name: js
-      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.6.7"
   json_annotation:
     dependency: "direct main"
     description:
@@ -538,6 +570,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  local_auth:
+    dependency: "direct main"
+    description:
+      name: local_auth
+      sha256: "434d854cf478f17f12ab29a76a02b3067f86a63a6d6c4eb8fbfdcfe4879c1b7b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
+  local_auth_android:
+    dependency: transitive
+    description:
+      name: local_auth_android
+      sha256: "6763aaf8965f21822624cb2fd3c03d2a8b3791037b5efb0fe4b13e110f5afc92"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.46"
+  local_auth_darwin:
+    dependency: transitive
+    description:
+      name: local_auth_darwin
+      sha256: "6d2950da311d26d492a89aeb247c72b4653ddc93601ea36a84924a396806d49c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
+  local_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: local_auth_platform_interface
+      sha256: "1b842ff177a7068442eae093b64abe3592f816afd2a533c0ebcdbe40f9d2075a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.10"
+  local_auth_windows:
+    dependency: transitive
+    description:
+      name: local_auth_windows
+      sha256: bc4e66a29b0fdf751aafbec923b5bed7ad6ed3614875d8151afe2578520b2ab5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.11"
   logging:
     dependency: transitive
     description:
@@ -611,7 +683,7 @@ packages:
     source: hosted
     version: "1.9.0"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "50c5dd5b6e1aaf6fb3a78b33f6aa3afca52bf903a8a5298f53101fdaee55bbcd"
@@ -975,6 +1047,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  visibility_detector:
+    dependency: transitive
+    description:
+      name: visibility_detector
+      sha256: dd5cc11e13494f432d15939c3aa8ae76844c42b723398643ce9addb88a5ed420
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0+2"
   vm_service:
     dependency: transitive
     description:

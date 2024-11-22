@@ -33,3 +33,9 @@ extension StringValidationExtension on String? {
   /// Checks if the string is null or empty.
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 }
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}

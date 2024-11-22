@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:piton/core/common/app_loader.dart';
+import 'package:piton/features/splash/splash_view.dart';
 import 'package:piton/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,10 +39,12 @@ final appStartupProvider = FutureProvider<void>((ref) async {
   });
 
   // All async app initialization code goes here
-  await Future.wait([
+  final results = await Future.wait([
     ref.watch(sharedPreferencesProvider.future),
     EasyLocalization.ensureInitialized(),
+    getApplicationDocumentsDirectory(),
   ]);
+  Hive.defaultDirectory = (results[2] as Directory).path;
 });
 
 class AppStartupLoadingWidget extends StatelessWidget {

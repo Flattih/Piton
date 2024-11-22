@@ -7,10 +7,17 @@ import 'package:piton/features/splash/splash_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   return switch (routeSettings.name) {
+    // Splash Route
     SplashView.routeName => FadePageRoute(builder: (context) => const SplashView()),
+
+    // Auth Routes
     SignUpView.routeName => FadePageRoute(builder: (context) => const SignUpView()),
     SignInView.routeName => FadePageRoute(builder: (context) => const SignInView()),
+
+    // Home Route
     HomeView.routeName => FadePageRoute(builder: (context) => const HomeView()),
+
+    // Default Route
     _ => MaterialPageRoute(builder: (context) => const Scaffold()),
   };
 }

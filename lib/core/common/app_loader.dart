@@ -49,11 +49,11 @@ class ErrorHandler extends StatelessWidget {
   }
 }
 
-class ErrorScreen extends StatelessWidget {
+class ErrorView extends StatelessWidget {
   final String errorMessage;
   final VoidCallback onRetry;
 
-  const ErrorScreen({super.key, required this.errorMessage, required this.onRetry});
+  const ErrorView({super.key, required this.errorMessage, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
