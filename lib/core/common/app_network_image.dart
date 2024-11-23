@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +61,6 @@ final class AppNetworkImage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(getImageOfBookProvider(fileName ?? '')).when(
       data: (imageUrl) {
-        log("imageUrl: $imageUrl");
         return CachedNetworkImage(
           imageBuilder: (context, imageProvider) {
             return Container(

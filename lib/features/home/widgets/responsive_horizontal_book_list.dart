@@ -7,7 +7,9 @@ import 'package:piton/core/extension/context_extension.dart';
 import 'package:piton/core/extension/padding_extension.dart';
 import 'package:piton/core/theme/app_colors.dart';
 import 'package:piton/features/home/repository/book_repository.dart';
-import 'package:piton/features/home/view_models/search_view_model.dart';
+import 'package:piton/features/home/view_models/home_search_view_model.dart';
+import 'package:piton/features/home/views/book_detail_view.dart';
+import 'package:piton/features/home/views/books_by_category_view.dart';
 import 'package:piton/features/home/widgets/section_header.dart';
 import 'package:piton/models/book/res/get_book_categories_response.dart';
 import 'package:piton/models/book/res/get_products_by_category_id_response.dart';
@@ -32,8 +34,7 @@ class ResponsiveHorizontalBookList extends ConsumerWidget {
       (previous, next) {
         if (next is AsyncData<List<Product>> && previous != next) {
           final cachedBooks = next.value;
-          print("cachedBooks: $cachedBooks");
-          ref.read(searchViewModelPr.notifier).addBooks(cachedBooks);
+          ref.read(homeSearchViewModelPr.notifier).addBooks(cachedBooks);
         }
       },
     );
@@ -44,7 +45,12 @@ class ResponsiveHorizontalBookList extends ConsumerWidget {
         // Bölüm başlığı
         SectionHeader(
           title: bookCategory.name ?? "",
-          onTapViewAll: () {},
+          onTapViewAll: () {
+            context.toNamed(
+              BooksByCategoryView.routeName,
+              arguments: bookCategory,
+            );
+          },
         ),
         const Gap(20),
 
@@ -96,71 +102,76 @@ class ResponsiveHorizontalBookList extends ConsumerWidget {
     double cardHeight,
     Product book,
   ) {
-    return Container(
-      width: cardWidth,
-      margin: EdgeInsets.only(right: context.lowValue * 2),
-      decoration: BoxDecoration(
-        color: context.primaryColor,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Row(
-        children: [
-          // Kitap resmi
-          AppNetworkImage(
-            borderRadius: BorderRadius.circular(12),
-            size: Size(cardWidth * 0.4, cardHeight),
-            fileName: book.cover,
-          ),
-
-          const Gap(8),
-
-          // Kitap bilgileri
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Text(
-                  book.name ?? "",
-                  style: TextStyle(
-                    fontSize: cardWidth * 0.05,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  book.author ?? "",
-                  style: TextStyle(
-                    fontSize: cardWidth * 0.047,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF676787),
-                  ),
-                ),
-                const Spacer(flex: 4),
-                Text(
-                  "${book.price} \$",
-                  style: TextStyle(
-                    fontSize: cardWidth * 0.065,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.purpleColor,
-                  ),
-                ),
-                const Spacer(flex: 2),
-              ],
+    return GestureDetector(
+      onTap: () {
+        context.toNamed(BookDetailView.routeName, arguments: book.id);
+      },
+      child: Container(
+        width: cardWidth,
+        margin: EdgeInsets.only(right: context.lowValue * 2),
+        decoration: BoxDecoration(
+          color: context.primaryColor,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              offset: const Offset(0, 3),
             ),
-          ),
-        ],
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Row(
+          children: [
+            // Kitap resmi
+            AppNetworkImage(
+              borderRadius: BorderRadius.circular(12),
+              size: Size(cardWidth * 0.4, cardHeight),
+              fileName: book.cover,
+            ),
+
+            const Gap(8),
+
+            // Kitap bilgileri
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  Text(
+                    book.name ?? "",
+                    style: TextStyle(
+                      fontSize: cardWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    book.author ?? "",
+                    style: TextStyle(
+                      fontSize: cardWidth * 0.047,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF676787),
+                    ),
+                  ),
+                  const Spacer(flex: 4),
+                  Text(
+                    "${book.price} \$",
+                    style: TextStyle(
+                      fontSize: cardWidth * 0.065,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.purpleColor,
+                    ),
+                  ),
+                  const Spacer(flex: 2),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

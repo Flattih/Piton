@@ -16,6 +16,7 @@ class AuthViewModel extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
+  // Sign Up with email and password
   Future<bool> signUpWithEmail(SignUpReq signUpReq) async {
     final authRepository = ref.read(authRepositoryProvider);
     try {
@@ -29,6 +30,7 @@ class AuthViewModel extends AutoDisposeAsyncNotifier<void> {
     }
   }
 
+  // Sign In with email and password
   Future<bool> signInWithEmailAndPassword(SignInReq signInReq) async {
     try {
       final authRepository = ref.read(authRepositoryProvider);

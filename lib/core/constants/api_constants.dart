@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class ApiConstants {
   ApiConstants._();
 
@@ -22,4 +24,7 @@ class ApiConstants {
   // Books
   static const String GET_BOOKS_BY_CATEGORY_ID_URL = 'products';
   static const String GET_IMAGE_OF_BOOK_URL = 'cover_image';
+  static const String GET_BOOK_BY_ID_URL = 'product';
+  static const String LIKE_BOOK_URL = 'like';
+  static const String UNLIKE_BOOK_URL = 'unlike';
 }

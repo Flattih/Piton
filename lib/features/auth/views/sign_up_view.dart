@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,10 +8,11 @@ import 'package:piton/core/common/title_with_text_field.dart';
 import 'package:piton/core/constants/image_constants.dart';
 import 'package:piton/core/extension/context_extension.dart';
 import 'package:piton/core/extension/string_extension.dart';
+import 'package:piton/core/lang/locale_keys.g.dart';
 import 'package:piton/features/auth/mixin/sign_up_screen_mixin.dart';
 import 'package:piton/features/auth/view_model/auth_view_model.dart';
 import 'package:piton/features/auth/views/sign_in_view.dart';
-import 'package:piton/features/home/home_view.dart';
+import 'package:piton/features/home/views/home_view.dart';
 import 'package:piton/models/auth/req/sign_up_req.dart';
 
 class SignUpView extends ConsumerStatefulWidget {
@@ -53,7 +55,6 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                           child: Image.asset(
                             Images.logo,
                             width: 100,
-                            height: 65,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -67,18 +68,18 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Welcome",
+                              LocaleKeys.welcome,
                               style: context.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
+                            ).tr(),
                             const Gap(10),
                             Text(
-                              "Register an account",
+                              LocaleKeys.register_account,
                               style: context.textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
+                            ).tr(),
                           ],
                         ),
                       ),
@@ -90,12 +91,12 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TitleWithTextField(
-                              title: "Name",
+                              title: LocaleKeys.name.tr(),
                               hintText: "John Doe",
                               controller: nameController,
                             ),
                             TitleWithTextField(
-                              title: "E-mail",
+                              title: LocaleKeys.email.tr(),
                               hintText: "john@mail.com",
                               controller: emailController,
                               validator: (value) => value?.validateEmail(),
@@ -103,7 +104,7 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                             Column(
                               children: [
                                 TitleWithTextField(
-                                  title: "Password",
+                                  title: LocaleKeys.password.tr(),
                                   hintText: "\u2022\u2022\u2022\u2022\u2022\u2022",
                                   controller: passwordController,
                                   validator: (value) => value?.validatePassword(),
@@ -114,7 +115,7 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                                     onPressed: () {
                                       context.toReplacementNamed(SignInView.routeName);
                                     },
-                                    child: const Text("Login"),
+                                    child: const Text(LocaleKeys.login).tr(),
                                   ),
                                 ),
                               ],
@@ -133,7 +134,7 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _handleRegister,
-                                child: const Text("Register"),
+                                child: const Text(LocaleKeys.register).tr(),
                               ),
                             ),
                           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension PaddingExtensions on Widget {
-  /// Tüm kenarlar için eşit padding
+  /// Equal padding for all sides
   Widget paddingAll(double value) {
     return Padding(
       padding: EdgeInsets.all(value),
@@ -9,7 +9,7 @@ extension PaddingExtensions on Widget {
     );
   }
 
-  /// Yatay ve dikey simetrik padding
+  /// Symmetric padding for horizontal and vertical sides
   Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
@@ -17,7 +17,7 @@ extension PaddingExtensions on Widget {
     );
   }
 
-  /// Sadece belirli kenarlar için padding
+  /// Padding for specific sides only
   Widget paddingOnly({
     double left = 0.0,
     double top = 0.0,

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:piton/core/enums/enums.dart';
 
 @immutable
-
-/// Product localization manager
 final class LanguageManager extends EasyLocalization {
   /// LanguageManager need to [child] for a wrap locale item
   LanguageManager({

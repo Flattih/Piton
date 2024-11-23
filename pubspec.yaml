@@ -37,6 +37,8 @@ dependencies:
   gap: ^3.0.1
   fluttertoast: ^8.2.8
   cached_network_image: ^3.4.1
+  auto_size_text: ^3.0.0
+
 
   # Animation
   flutter_animate: ^4.5.1
@@ -64,6 +66,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/translations/
 
 
   fonts:

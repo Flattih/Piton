@@ -7,7 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:piton/core/common/app_loader.dart';
-import 'package:piton/features/splash/splash_view.dart';
+import 'package:piton/core/lang/language_manager.dart';
 import 'package:piton/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +18,7 @@ class AppStartupWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appStartupState = ref.watch(appStartupProvider);
     return appStartupState.when(
-      data: (_) => const MyApp(),
+      data: (_) => LanguageManager(child: const MyApp()),
       loading: () => const AppStartupLoadingWidget(),
       error: (error, stack) => AppStartupErrorWidget(
         message: error.toString(),

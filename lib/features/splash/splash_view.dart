@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piton/core/constants/shared_pref.dart';
 import 'package:piton/core/extension/context_extension.dart';
 import 'package:piton/features/auth/views/sign_in_view.dart';
-import 'package:piton/features/home/home_view.dart';
+import 'package:piton/features/home/views/home_view.dart';
 import 'package:piton/features/splash/splash_screen_content.dart';
 
 // SplashView widget to handle the splash screen logic

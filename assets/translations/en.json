@@ -1,0 +1,13 @@
+{
+    "login":"Login",
+    "skip":"Skip",
+    "welcome":"Welcome",
+    "welcome_back":"Welcome back!",
+    "login_account":"Login to your account",
+    "register_account":"Register an account",
+    "email":"E-mail",
+    "name":"Name",
+    "password":"Password",
+    "remember_me":"Remember me",
+    "register":"Register"
+}

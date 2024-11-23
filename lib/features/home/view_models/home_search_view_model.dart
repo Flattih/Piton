@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:piton/features/home/view_models/search_state.dart';
+import 'package:piton/features/home/view_models/home_search_state.dart';
 import 'package:piton/models/book/res/get_products_by_category_id_response.dart';
 
-final searchViewModelPr = NotifierProvider<SearchViewModel, SearchState>(SearchViewModel.new);
+final homeSearchViewModelPr = NotifierProvider<HomeSearchViewModel, HomeSearchState>(HomeSearchViewModel.new);
 
-class SearchViewModel extends Notifier<SearchState> {
+class HomeSearchViewModel extends Notifier<HomeSearchState> {
   // Yeni ürünleri listeye ekler
   void addBooks(List<Product> newProducts) {
     final uniqueResults = [
@@ -29,7 +29,7 @@ class SearchViewModel extends Notifier<SearchState> {
   }
 
   @override
-  SearchState build() {
-    return SearchState();
+  HomeSearchState build() {
+    return HomeSearchState();
   }
 }

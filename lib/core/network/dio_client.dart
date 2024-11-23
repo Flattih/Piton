@@ -20,7 +20,7 @@ class DioClient {
         onRequest: (options, handler) async {
           final token = ref.read(sharedPreferencesProvider).requireValue.getString(SharedPref.token);
           if (token != null) {
-            options.headers["Authorization"];
+            options.headers["Authorization"] = "Bearer $token";
           }
           return handler.next(options);
         },

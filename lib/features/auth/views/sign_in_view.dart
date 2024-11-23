@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,13 +9,13 @@ import 'package:piton/core/constants/image_constants.dart';
 import 'package:piton/core/extension/context_extension.dart';
 import 'package:piton/core/extension/padding_extension.dart';
 import 'package:piton/core/extension/string_extension.dart';
+import 'package:piton/core/lang/locale_keys.g.dart';
 import 'package:piton/core/theme/app_colors.dart';
 import 'package:piton/features/auth/mixin/sign_in_screen_mixin.dart';
 import 'package:piton/features/auth/view_model/auth_view_model.dart';
 import 'package:piton/features/auth/views/sign_up_view.dart';
-import 'package:piton/features/home/home_view.dart';
+import 'package:piton/features/home/views/home_view.dart';
 import 'package:piton/models/auth/req/sign_in_req.dart';
-import 'package:piton/models/auth/req/sign_up_req.dart';
 
 final rememberMeProvider = StateProvider.autoDispose<bool>((ref) {
   return false;
@@ -60,17 +61,13 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
                           child: Image.asset(
                             Images.logo,
                             width: 100,
-                            height: 65,
                             fit: BoxFit.contain,
                           ),
                         ),
                       ),
 
                       // Spacing between Logo and Welcome
-                      const Expanded(
-                        flex: 1,
-                        child: SizedBox(),
-                      ),
+                      const Spacer(),
 
                       // Welcome Text Section
                       Expanded(
@@ -79,26 +76,23 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Welcome back!",
+                              LocaleKeys.welcome_back,
                               style: context.textTheme.titleMedium
                                   ?.copyWith(fontWeight: FontWeight.w600, color: const Color(0xFF6B6B87)),
-                            ),
+                            ).tr(),
                             const Gap(10),
                             Text(
-                              "Login to your account",
+                              LocaleKeys.login_account,
                               style: context.textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.w700,
                               ),
-                            ),
+                            ).tr(),
                           ],
                         ),
                       ),
 
                       // Spacing between Register text and form
-                      const Expanded(
-                        flex: 1,
-                        child: SizedBox(),
-                      ),
+                      const Spacer(),
 
                       // Form Fields Section
                       Expanded(
@@ -107,14 +101,14 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             TitleWithTextField(
-                              title: "E-mail",
+                              title: LocaleKeys.email.tr(),
                               hintText: "john@mail.com",
                               controller: emailController,
                               validator: (value) => value?.validateEmail(),
                             ),
                             const Gap(16),
                             TitleWithTextField(
-                              title: "Password",
+                              title: LocaleKeys.password.tr(),
                               hintText: "\u2022\u2022\u2022\u2022\u2022\u2022",
                               controller: passwordController,
                               validator: (value) => value?.validatePassword(),
@@ -141,17 +135,17 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
                                     ),
                                     const Gap(5),
                                     Text(
-                                      "Remember me",
+                                      LocaleKeys.remember_me,
                                       style: context.textTheme.labelLarge
                                           ?.copyWith(fontWeight: FontWeight.w700, color: AppColors.purpleColor),
-                                    ),
+                                    ).tr(),
                                   ],
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     context.toReplacementNamed(SignUpView.routeName);
                                   },
-                                  child: const Text("Register"),
+                                  child: const Text(LocaleKeys.register).tr(),
                                 ),
                               ],
                             ),
@@ -169,7 +163,7 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _handleLogin,
-                                child: const Text("Login"),
+                                child: const Text(LocaleKeys.login).tr(),
                               ),
                             ),
                           ],

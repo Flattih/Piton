@@ -1,5 +1,5 @@
 extension ValidationExtensions on String {
-  // E-mail Validasyonu
+  // E-mail validation
   String? validateEmail() {
     if (isEmpty) {
       return "E-mail cannot be empty";
@@ -11,7 +11,7 @@ extension ValidationExtensions on String {
     return null;
   }
 
-  // Şifre Validasyonu
+  // Password validation
   String? validatePassword() {
     if (isEmpty) {
       return "Password cannot be empty";

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:piton/features/home/views/home_view.dart';
+import 'package:piton/features/home/views/books_by_category_view.dart';
 
-mixin HomeViewMixin on State<HomeView> {
+mixin ProductsByCategoryViewMixin on State<BooksByCategoryView> {
   final TextEditingController searchController = TextEditingController();
   @override
   void dispose() {

@@ -1,0 +1,13 @@
+{
+    "login": "Giriş",
+    "skip": "Atla",
+    "welcome": "Hoşgeldiniz",
+    "welcome_back": "Hoşgeldiniz!",
+    "login_account": "Hesabınıza giriş yapın",
+    "register_account": "Hesabınıza kayıt olun",
+    "email":"E-posta",
+    "name":"İsim",
+    "password":"Şifre",
+    "remember_me":"Beni hatırla",
+    "register":"Kayıt ol"
+}
