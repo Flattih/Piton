@@ -29,7 +29,7 @@ class _SignUpScreenState extends ConsumerState<SignUpView> with SignUpScreenMixi
     ref.listen(
       authViewModelPr,
       (_, state) {
-        if (state.hasError) {
+        if (state is AsyncError) {
           Fluttertoast.showToast(
             msg: state.error.toString(),
           );

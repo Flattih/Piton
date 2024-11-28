@@ -18,10 +18,8 @@ class DioClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = ref.read(sharedPreferencesProvider).requireValue.getString(SharedPref.token);
-          if (token != null) {
-            options.headers["Authorization"] = "Bearer $token";
-          }
+          final token = SharedPref.getToken(ref);
+          options.headers["Authorization"] = "Bearer $token";
           return handler.next(options);
         },
         onError: (e, handler) {

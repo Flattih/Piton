@@ -35,7 +35,7 @@ class _SignInScreenState extends ConsumerState<SignInView> with SignInScreenMixi
     ref.listen(
       authViewModelPr,
       (_, state) {
-        if (state.hasError) {
+        if (state is AsyncError) {
           Fluttertoast.showToast(
             msg: state.error.toString(),
           );

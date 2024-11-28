@@ -24,4 +24,9 @@ class SharedPref {
   static Future<void> removeToken(WidgetRef ref) async {
     await ref.read(sharedPreferencesProvider).requireValue.remove(SharedPref.token);
   }
+
+  // Get token
+  static String getToken(Ref ref) {
+    return ref.read(sharedPreferencesProvider).requireValue.getString(SharedPref.token) ?? "";
+  }
 }
